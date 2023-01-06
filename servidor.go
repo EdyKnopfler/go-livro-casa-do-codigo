@@ -7,6 +7,7 @@ import (
     "strings"
     "encoding/json"
     
+    "github.com/edyknopfler/encurtador/database"
     "github.com/edyknopfler/encurtador/url"
 )
 
@@ -25,10 +26,17 @@ func init() {
     // Inicialização do pacote main
     porta = 8888
     urlBase = fmt.Sprintf("http://localhost:%d", porta)
-    url.ConfigurarRepositorio(url.NovoRepositorioMemoria())
 }
 
 func main() {
+    conexao := database.Conectar()
+    log.Printf("Conectado à base de dados.")
+    defer conexao.Close()
+
+    // TODO criar o novo repositório baseado em SQL
+    // url.ConfigurarRepositorio(url.NovoRepositorioSQL(conexao))
+    url.ConfigurarRepositorio(url.NovoRepositorioMemoria())
+
     stats := make(chan string)
     defer close(stats)
     go registrarEstatisticas(stats)
@@ -36,6 +44,8 @@ func main() {
     http.HandleFunc("/api/encurtar", Encurtador)
     http.Handle("/r/", &Redirecionador{stats})
     http.HandleFunc("/api/stats/", Visualizador)
+
+    log.Printf("Ouvindo requisições na porta %d.", porta)
     log.Fatal(http.ListenAndServe(
         fmt.Sprintf(":%d", porta), nil))
 }
