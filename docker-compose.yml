@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - ./data:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: "Postgres2023!"
+    ports:
+      - "5432:5432"
