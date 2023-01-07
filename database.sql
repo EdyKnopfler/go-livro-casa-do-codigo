@@ -5,8 +5,10 @@ create table url (
 );
 
 create table clique (
-	url_id varchar(5) not null,
+	url_id varchar(5) not null primary key,
 	contagem integer,
 	constraint fk_clique_url foreign key (url_id)
 	    references url(id) on delete no action
 );
+
+CREATE UNIQUE INDEX url_destino_idx ON url (destino);
