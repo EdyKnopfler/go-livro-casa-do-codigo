@@ -2,6 +2,8 @@
 
 * Estudando a linguagem Go pelo [livro](https://www.casadocodigo.com.br/products/livro-google-go) da editora
 * Acrescentando melhorias como uso de banco de dados
+  * https://aprendagolang.com.br/2022/06/02/como-conectar-e-fazer-crud-em-um-banco-postgresql/
+  * https://koho.dev/understanding-go-and-databases-at-scale-connection-pooling-f301e56fa73
 
 Para facilitar o banco PostgreSQL está configurado com Docker e docker-compose, bastando executar:
 

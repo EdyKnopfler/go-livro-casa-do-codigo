@@ -22,8 +22,10 @@ func Conectar() (*sql.DB) {
         panic(err)
     }
 
-    err = db.Ping()
+    db.SetMaxOpenConns(5)  // Depende do quanto contratei no Heroku ;)
+    db.SetMaxIdleConns(2)
 
+    err = db.Ping()
 
     if err != nil {
         panic(err)

@@ -8,6 +8,7 @@ import (
     "encoding/json"
     
     "github.com/edyknopfler/encurtador/url"
+    "github.com/edyknopfler/encurtador/database"
 )
 
 var (
@@ -28,7 +29,11 @@ func init() {
 }
 
 func main() {
-    url.ConfigurarRepositorio(url.NovoRepositorioDatabase())
+    conexao := database.Conectar()
+    log.Printf("Conectado à base de dados.")
+    defer conexao.Close()
+
+    url.ConfigurarRepositorio(url.NovoRepositorioDatabase(conexao))
     //url.ConfigurarRepositorio(url.NovoRepositorioMemoria())
 
     stats := make(chan string)
